@@ -12,7 +12,8 @@
 <style type="text/css">
 
 	.jumbotron{
-		padding-top: 10%;
+		padding-top: 10% 0;
+
 	}
 </style>
 <?php
@@ -70,7 +71,7 @@
   		</div>
   	</div>
     <footer class="container-fluid text-center">
-      <p>Veotek<i class="material-icons">copyright</i> <span id="theYear"></span></p>
+      <p>Veotek<i class="material-icons" style="font-size:16px;">copyright</i> <span id="theYear"></span></p>
       <div class"row">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/round-icons" title="Round Icons">Round Icons</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
     </footer>
   </body>
@@ -82,7 +83,7 @@ google.charts.setOnLoadCallback(drawBackgroundColor);
 function drawBackgroundColor() {
       var data = new google.visualization.DataTable();
       data.addColumn('date', 'Dia');
-      data.addColumn('number', 'Empleados');
+      data.addColumn('number', 'Biseles');
 
       data.addRows([
         <?php

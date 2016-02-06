@@ -7,11 +7,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <style type="text/css">
 
 	.jumbotron{
-		padding-top: 10%;
+    padding-top: 10% 0;
 	}
 </style>
 <?php
@@ -54,12 +55,13 @@
           </div>
           <div class="collapse navbar-collapse" id="myMenu">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="index.html"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Inicio</p></a></li>
-              <li><a href="index.html"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Armazones</p></a></li>
-              <li><a href="index.html"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Micas</p></a></li>
-              <li><a href="index.html"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Materiales</p></a></li>
-              <li><a href="index.html"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Tratamiento</p></a></li>
-              <li><a href="index.html"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Tipo</p></a></li>              
+              <li><a href="index.php"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Inicio</p></a></li>
+              <li><a href="armazones.php"><p class="text-center"><img src="img/png/rectangular35.png"></p><p class="text-center">Armazones</p></a></li>
+              <li class="active"><a href="micas.php"><p class="text-center"><img src="img/png/rectangular30.png"></p><p class="text-center">Micas</p></a></li>
+              <li><a href="materiales.php"><p class="text-center"><img src="img/png/eyeglasses4.png"></p><p class="text-center">Materiales</p></a></li>
+              <li><a href="tratamiento.php"><p class="text-center"><img src="img/png/tool700.png"></p><p class="text-center">Tratamiento</p></a></li>
+              <li><a href="tipo.php"><p class="text-center"><img src="img/png/glasses48.png"></p><p class="text-center">Tipo</p></a></li>              
+              <li><a href="tecnico.php"><p class="text-center"><img src="img/png/user219.png"></p><p class="text-center">Tecnico</p></a></li>              
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>
@@ -74,6 +76,10 @@
 		    </div>
   		</div>
   	</div>
+    <footer class="container-fluid text-center">
+      <p>Veotek<i class="material-icons" style="font-size:16px;">copyright</i> <span id="theYear"></span></p>
+      <div class"row">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/round-icons" title="Round Icons">Round Icons</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+    </footer>
   </body>
 
   <script type="text/javascript">
@@ -132,3 +138,8 @@ function drawBackgroundColor() {
       chart.draw(data, options);
     }
   </script>
+<script type="text/javascript">
+    var d = new Date();
+    var n = d.getFullYear();
+    document.getElementById("theYear").innerHTML = n;
+</script>
