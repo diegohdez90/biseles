@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<style type="text/css">
-
-	.jumbotron{
-    padding-top: 10% 0;
-	}
-</style>
 <?php
 
 	$servername = "localhost";
@@ -51,7 +45,7 @@
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myMenu">
             </button>
-            <a class="navbar-brand" href="index.html">Proyectos</a>
+            <a class="navbar-brand" href="index.php">Proyectos</a>
           </div>
           <div class="collapse navbar-collapse" id="myMenu">
             <ul class="nav navbar-nav">
