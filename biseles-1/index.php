@@ -13,6 +13,9 @@
     footer{
           min-height: 1%;
     }
+    .jumbotron{
+      padding-top: 5%;
+    }
   </style>
 <?php
 
@@ -50,8 +53,10 @@
             <ul class="nav navbar-nav">
               <li class="active"><a href="index.php"><p class="text-center"><img src="../img/png/home153.png"></p><p class="text-center">Inicio</p></a></li>
               <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><p class="text-center"><img src="../img/png/rectangular35.png"></p><p class="text-center">Armazones</p>
-                <p class="text-center"><span class="caret"></span></p></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <p class="text-center"><img src="../img/png/rectangular35.png"></p><p class="text-center">Armazones</p>
+                  <p class="text-center"><span class="caret"></span></p>
+                </a>
                 <ul class="dropdown-menu">
                   <?php
                       $resultArmazones = $my_sql_conn->query("select armazon from pedido where armazon!=' ' group by armazon");
@@ -59,15 +64,51 @@
                       while($rs = $resultArmazones->fetch_array(MYSQLI_ASSOC)){
                         $armazon[$i] = $rs['armazon'];
                         $thearmazon[$armazon[$i]] = str_replace(' ', '', $armazon[$i]);
-                        echo "<li><a href='#".$thearmazon[$armazon[$i]]."' class='".$thearmazon[$armazon[$i]]."graph'>".$armazon[$i]."</a></li>";
+                        echo "<li><a href='#".$thearmazon[$armazon[$i]]."link' class='".$thearmazon[$armazon[$i]]."graph'>".$armazon[$i]."</a></li>";
                         $i += 1;
                       }
 
                   ?>
                 </ul>
               </li>
-              <li><a href="micas.php"><p class="text-center"><img src="../img/png/rectangular30.png"></p><p class="text-center">Micas</p></a></li>
-              <li><a href="materiales.php"><p class="text-center"><img src="../img/png/eyeglasses4.png"></p><p class="text-center">Materiales</p></a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <p class="text-center"><img src="../img/png/rectangular30.png"></p><p class="text-center">Micas</p>
+                  <p class="text-center"><span class="caret"></span></p>
+                </a>
+                <ul class="dropdown-menu">
+                  <?php
+                      $resultMicas = $my_sql_conn->query("select micas from pedido where micas!=' ' group by micas");
+                      $i=0;
+                      while($rs = $resultMicas->fetch_array(MYSQLI_ASSOC)){
+                        $micas[$i] = $rs['micas'];
+                        $themicas[$micas[$i]] = str_replace('-', '', $micas[$i]);
+                        echo "<li><a href='#".$themicas[$micas[$i]]."link' class='".$themicas[$micas[$i]]."graph'>".$micas[$i]."</a></li>";
+                        $i += 1;
+                      }
+
+                  ?>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <p class="text-center"><img src="../img/png/eyeglasses4.png"></p><p class="text-center">Materiales</p>
+                  <p class="text-center"><span class="caret"></span></p>
+                </a>
+                <ul class="dropdown-menu">
+                  <?php
+                      $resultMateriales = $my_sql_conn->query("select materiales from pedido where materiales!=' ' group by materiales");
+                      $i=0;
+                      while($rs = $resultMateriales->fetch_array(MYSQLI_ASSOC)){
+                        $materiales[$i] = $rs['materiales'];
+                        $themateriales[$materiales[$i]] = str_replace('-', '', $materiales[$i]);
+                        echo "<li><a href='#material".$themateriales[$materiales[$i]]."link' class='".$themateriales[$materiales[$i]]."graph'>".$materiales[$i]."</a></li>";
+                        $i += 1;
+                      }
+
+                  ?>                  
+                </ul>
+              </li>
               <li><a href="tratamiento.php"><p class="text-center"><img src="../img/png/tool700.png"></p><p class="text-center">Tratamiento</p></a></li>
               <li><a href="tipo.php"><p class="text-center"><img src="../img/png/glasses48.png"></p><p class="text-center">Tipo</p></a></li>              
               <li><a href="tecnico.php"><p class="text-center"><img src="../img/png/user219.png"></p><p class="text-center">Tecnico</p></a></li>              
@@ -79,18 +120,46 @@
         </div>
       </nav>
 
+    <div class="jumbotron">
 <?php
     foreach ($thearmazon as $key => $value) {
-      echo '<div class="jumbotron" id="'.$value.'">
-      <div class="container">
+      echo '
+      <div class="container" id="'.$value.'link">
+        <div class="row"><h3 class="text-center">'.$key.'</h3></div>
         <div class="row">
             <div id="'.$value.'"></div>
         </div>
-      </div>
-    </div>';      
+      </div>';      
     }
 ?>
 
+
+    <div class="jumbotron">
+<?php
+    foreach ($themicas as $key => $value) {
+      echo '
+      <div class="container" id="'.$value.'link">
+        <div class="row"><h3 class="text-center">'.$key.'</h3></div>
+        <div class="row">
+            <div id="'.$value.'"></div>
+        </div>
+      </div>';      
+    }
+?>
+
+    <div class="jumbotron">
+<?php
+    foreach ($themateriales as $key => $value) {
+      echo '
+      <div class="container" id="material'.$value.'link">
+        <div class="row"><h3 class="text-center">'.$key.'</h3></div>
+        <div class="row">
+            <div id="'.$value.'"></div>
+        </div>
+      </div>';      
+    }
+?>
+    </div>
     <footer class="container-fluid text-center">
       <p>Veotek<i class="material-icons" style="font-size:16px;">copyright</i> <span id="theYear"></span></p>
       <div class"row">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/round-icons" title="Round Icons">Round Icons</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
@@ -135,6 +204,74 @@
         }
 
   ?>
+
+  <?php
+    foreach ($themicas as $keymicas => $mica) {
+      # code...
+
+  ?>
+              var data<?php echo $mica ?> = new google.visualization.DataTable();
+              data<?php echo $mica ?>.addColumn('date', 'Dia');
+              data<?php echo $mica ?>.addColumn('number', '<?php echo $keymicas; ?>');
+
+              data<?php echo $mica ?>.addRows([
+                <?php
+                  foreach ($fechas as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and micas='$keymicas'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
+  <?php
+    foreach ($themateriales as $keymat => $mat) {
+      # code...
+
+  ?>
+              var data<?php echo $mat ?> = new google.visualization.DataTable();
+              data<?php echo $mat ?>.addColumn('date', 'Dia');
+              data<?php echo $mat ?>.addColumn('number', '<?php echo $keymat; ?>');
+
+              data<?php echo $mat ?>.addRows([
+                <?php
+                  foreach ($fechas as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and materiales='$keymat'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
+
   <?php
     foreach ($thearmazon as $key => $arm) {
       # code...
@@ -157,7 +294,51 @@
         }
 
   ?>
+  <?php
+    foreach ($themicas as $key => $mica) {
+      # code...
 
+  ?>
+
+              var options<?php echo $mica ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 600,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
+
+  <?php
+    foreach ($themateriales as $key => $mat) {
+      # code...
+
+  ?>
+
+              var options<?php echo $mat ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 600,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
   <?php
     foreach ($thearmazon as $key => $arm) {
       # code...
@@ -171,6 +352,36 @@
         }
 
   ?>
+
+    <?php
+    foreach ($themicas as $key => $mica) {
+      # code...
+
+  ?>
+              var chart<?php echo $mica ?> = new google.visualization.LineChart(document.getElementById('<?php echo $mica; ?>'));
+              chart<?php echo $mica ?>.draw(data<?php echo $mica ?>, options<?php echo $mica ?>);
+
+    <?php
+
+        }
+
+  ?>
+
+    <?php
+    foreach ($themateriales as $key => $mat) {
+      # code...
+
+  ?>
+              var chart<?php echo $mat ?> = new google.visualization.LineChart(document.getElementById('<?php echo $mat; ?>'));
+              chart<?php echo $mat ?>.draw(data<?php echo $mat ?>, options<?php echo $mat ?>);
+
+    <?php
+
+        }
+
+  ?>
+
+
 
             }
 
