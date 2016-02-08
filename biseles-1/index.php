@@ -34,6 +34,47 @@
       $fechas[$rs['fecha']] = $rs['biseles']; 
     }
 
+    $fechasArmazon = array();
+    $resultA = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where armazon!=' ' and fecha<'2016-09-01' group by fecha");
+
+    while($rs = $resultA->fetch_array(MYSQLI_ASSOC)){
+      $fechasArmazon[$rs['fecha']] = $rs['biseles']; 
+    }
+
+    $fechasMicas = array();
+    $resultM = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where micas!=' ' and fecha<'2016-09-01' group by fecha");
+
+    while($rs = $resultM->fetch_array(MYSQLI_ASSOC)){
+      $fechasMicas[$rs['fecha']] = $rs['biseles']; 
+    }
+
+    $fechasMateriales = array();
+    $resultMtles = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where materiales!=' ' and fecha<'2016-09-01'  group by fecha");
+
+    while($rs = $resultMtles->fetch_array(MYSQLI_ASSOC)){
+      $fechasMateriales[$rs['fecha']] = $rs['biseles']; 
+    }
+
+    $fechasTratamiento = array();
+    $resultTmto = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tratamiento!=' ' and fecha<'2016-09-01' group by fecha");
+
+    while($rs = $resultTmto->fetch_array(MYSQLI_ASSOC)){
+      $fechasTratamiento[$rs['fecha']] = $rs['biseles']; 
+    }
+
+    $fechasTipo = array();
+    $resultType = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tipo!=' ' and fecha<'2016-09-01' group by fecha");
+
+    while($rs = $resultType->fetch_array(MYSQLI_ASSOC)){
+      $fechasTipo[$rs['fecha']] = $rs['biseles']; 
+    }
+
+    $fechasTecnico = array();
+    $resultTech = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tecnico!=' ' and fecha<'2016-09-01' group by fecha");
+
+    while($rs = $resultTech->fetch_array(MYSQLI_ASSOC)){
+      $fechasTecnico[$rs['fecha']] = $rs['biseles']; 
+    }
 
 
 ?>
@@ -102,6 +143,7 @@
                       while($rs = $resultMateriales->fetch_array(MYSQLI_ASSOC)){
                         $materiales[$i] = $rs['materiales'];
                         $themateriales[$materiales[$i]] = str_replace('-', '', $materiales[$i]);
+
                         echo "<li><a href='#material".$themateriales[$materiales[$i]]."link' class='".$themateriales[$materiales[$i]]."graph'>".$materiales[$i]."</a></li>";
                         $i += 1;
                       }
@@ -109,10 +151,29 @@
                   ?>                  
                 </ul>
               </li>
-              <li><a href="tratamiento.php"><p class="text-center"><img src="../img/png/tool700.png"></p><p class="text-center">Tratamiento</p></a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <p class="text-center"><img src="../img/png/tool700.png"></p><p class="text-center">Tratamiento</p>
+                  <p class="text-center"><span class="caret"></span></p>
+                </a>
+                <ul class="dropdown-menu">
+                  <?php
+                      $resultTratamiento = $my_sql_conn->query("select tratamiento from pedido where tratamiento!=' ' group by tratamiento");
+                      $i=0;
+                      while($rs = $resultTratamiento->fetch_array(MYSQLI_ASSOC)){
+                        $tratamiento[$i] = $rs['tratamiento'];
+                        $thetratamiento[$tratamiento[$i]] = str_replace('-', '', $tratamiento[$i]);
+                        $thetratamiento[$tratamiento[$i]] = str_replace(' ', '', $thetratamiento[$tratamiento[$i]]);
+                        echo "<li><a href='#material".$thetratamiento[$tratamiento[$i]]."link' class='".$thetratamiento[$tratamiento[$i]]."graph'>".$tratamiento[$i]."</a></li>";
+                        $i += 1;
+                      }
+
+                  ?>                  
+                </ul>
+              </li>
               <li><a href="tipo.php"><p class="text-center"><img src="../img/png/glasses48.png"></p><p class="text-center">Tipo</p></a></li>              
               <li><a href="tecnico.php"><p class="text-center"><img src="../img/png/user219.png"></p><p class="text-center">Tecnico</p></a></li>              
-              <li><a href="tecnico.php"><p class="text-center"><img src="../img/png/next21.png"></p><p class="text-center">Otro Modelo</p></a></li>
+              <li><a href="../"><p class="text-center"><img src="../img/png/last-track.png"></p><p class="text-center">Otro Modelo</p></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>
@@ -133,7 +194,7 @@
     }
 ?>
 
-
+</div>
     <div class="jumbotron">
 <?php
     foreach ($themicas as $key => $value) {
@@ -146,6 +207,7 @@
       </div>';      
     }
 ?>
+</div>
 
     <div class="jumbotron">
 <?php
@@ -159,6 +221,21 @@
       </div>';      
     }
 ?>
+
+
+    <div class="jumbotron">
+<?php
+    foreach ($thetratamiento as $key => $value) {
+      echo '
+      <div class="container" id="material'.$value.'link">
+        <div class="row"><h3 class="text-center">'.$key.'</h3></div>
+        <div class="row">
+            <div id="'.$value.'"></div>
+        </div>
+      </div>';      
+    }
+?>
+
     </div>
     <footer class="container-fluid text-center">
       <p>Veotek<i class="material-icons" style="font-size:16px;">copyright</i> <span id="theYear"></span></p>
@@ -183,7 +260,7 @@
 
               data<?php echo $arm ?>.addRows([
                 <?php
-                  foreach ($fechas as $key => $value) {
+                  foreach ($fechasArmazon as $key => $value) {
                     $annio = substr($key, 0,4);
                     $mes = substr($key, 5,2);
                     $dia = substr($key, 8,2);
@@ -216,7 +293,7 @@
 
               data<?php echo $mica ?>.addRows([
                 <?php
-                  foreach ($fechas as $key => $value) {
+                  foreach ($fechasMicas as $key => $value) {
                     $annio = substr($key, 0,4);
                     $mes = substr($key, 5,2);
                     $dia = substr($key, 8,2);
@@ -249,7 +326,7 @@
 
               data<?php echo $mat ?>.addRows([
                 <?php
-                  foreach ($fechas as $key => $value) {
+                  foreach ($fechasMateriales as $key => $value) {
                     $annio = substr($key, 0,4);
                     $mes = substr($key, 5,2);
                     $dia = substr($key, 8,2);
@@ -294,6 +371,42 @@
         }
 
   ?>
+
+  <?php
+    foreach ($thetratamiento as $keytrat => $trat) {
+      # code...
+
+  ?>
+              var data<?php echo $trat ?> = new google.visualization.DataTable();
+              data<?php echo $trat ?>.addColumn('date', 'Dia');
+              data<?php echo $trat ?>.addColumn('number', '<?php echo $keytrat; ?>');
+
+              data<?php echo $trat ?>.addRows([
+                <?php
+                  foreach ($fechasTratamiento as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and tratamiento='$keytrat'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
+
+
   <?php
     foreach ($themicas as $key => $mica) {
       # code...
@@ -339,6 +452,31 @@
         }
 
   ?>
+
+  <?php
+    foreach ($thetratamiento as $key => $trat) {
+      # code...
+
+  ?>
+
+              var options<?php echo $trat ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 600,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
+
+
   <?php
     foreach ($thearmazon as $key => $arm) {
       # code...
@@ -374,6 +512,21 @@
   ?>
               var chart<?php echo $mat ?> = new google.visualization.LineChart(document.getElementById('<?php echo $mat; ?>'));
               chart<?php echo $mat ?>.draw(data<?php echo $mat ?>, options<?php echo $mat ?>);
+
+    <?php
+
+        }
+
+  ?>
+
+
+    <?php
+    foreach ($thetratamiento as $key => $trat) {
+      # code...
+
+  ?>
+              var chart<?php echo $trat ?> = new google.visualization.LineChart(document.getElementById('<?php echo $trat; ?>'));
+              chart<?php echo $trat ?>.draw(data<?php echo $trat ?>, options<?php echo $trat ?>);
 
     <?php
 
