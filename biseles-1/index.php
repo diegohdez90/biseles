@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <style type="text/css">
     footer{
-          min-height: 1%;
+          min-height: 0.25%;
     }
     .jumbotron{
       padding-top: 5%;
@@ -70,7 +70,7 @@
     }
 
     $fechasTecnico = array();
-    $resultTech = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tecnico!=' ' and fecha<'2016-09-01' group by fecha");
+    $resultTech = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tecnico!=' ' and fecha<'2016-09-01' and fecha>'2015-09-13' group by fecha");
 
     while($rs = $resultTech->fetch_array(MYSQLI_ASSOC)){
       $fechasTecnico[$rs['fecha']] = $rs['biseles']; 
@@ -164,22 +164,61 @@
                         $tratamiento[$i] = $rs['tratamiento'];
                         $thetratamiento[$tratamiento[$i]] = str_replace('-', '', $tratamiento[$i]);
                         $thetratamiento[$tratamiento[$i]] = str_replace(' ', '', $thetratamiento[$tratamiento[$i]]);
-                        echo "<li><a href='#material".$thetratamiento[$tratamiento[$i]]."link' class='".$thetratamiento[$tratamiento[$i]]."graph'>".$tratamiento[$i]."</a></li>";
+                        echo "<li><a href='#trat".$thetratamiento[$tratamiento[$i]]."link' class='".$thetratamiento[$tratamiento[$i]]."graph'>".$tratamiento[$i]."</a></li>";
                         $i += 1;
                       }
 
                   ?>                  
                 </ul>
               </li>
-              <li><a href="tipo.php"><p class="text-center"><img src="../img/png/glasses48.png"></p><p class="text-center">Tipo</p></a></li>              
-              <li><a href="tecnico.php"><p class="text-center"><img src="../img/png/user219.png"></p><p class="text-center">Tecnico</p></a></li>              
-              <li><a href="../"><p class="text-center"><img src="../img/png/last-track.png"></p><p class="text-center">Otro Modelo</p></a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <p class="text-center"><img src="../img/png/glasses48.png"></p><p class="text-center">Tipo</p>
+                  <p class="text-center"><span class="caret"></span></p>
+                </a>
+                <ul class="dropdown-menu">
+                  <?php
+                      $resultTipo = $my_sql_conn->query("select tipo from pedido where tipo!=' ' group by tipo");
+                      $i=0;
+                      while($rs = $resultTipo->fetch_array(MYSQLI_ASSOC)){
+                        $tipo[$i] = $rs['tipo'];
+                        $thetipo[$tipo[$i]] = str_replace('-', '', $tipo[$i]);
+                        $thetipo[$tipo[$i]] = str_replace(' ', '', $thetipo[$tipo[$i]]);
+                        echo "<li><a href='#tipo".$thetipo[$tipo[$i]]."link' class='".$thetipo[$tipo[$i]]."graph'>".$tipo[$i]."</a></li>";
+                        $i += 1;
+                      }
+
+                  ?>   
+                </ul>
+              </li>              
+              <li>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <p class="text-center"><img src="../img/png/user219.png"></p><p class="text-center">Tecnico</p>
+                  <p class="text-center"><span class="caret"></span></p>
+              </a>
+              <ul class="dropdown-menu">
+                <?php
+                      $resultTecnico = $my_sql_conn->query("select tecnico from pedido where tecnico!=' ' group by tecnico");
+                      $i=0;
+                      while($rs = $resultTecnico->fetch_array(MYSQLI_ASSOC)){
+                        $tecnico[$i] = $rs['tecnico'];
+                        $thetech[$tecnico[$i]] = str_replace('-', '', $tecnico[$i]);
+                        $thetech[$tecnico[$i]] = str_replace(' ', '', $thetech[$tecnico[$i]]);
+                        echo "<li><a href='#tech".$thetech[$tecnico[$i]]."link' class='".$thetech[$tecnico[$i]]."graph'>".$tecnico[$i]."</a></li>";
+                        $i += 1;
+                      }
+
+                  ?>
+              </ul>
+              </li>              
+              <li><a href="../"><p class="text-center"><img src="../img/png/last-track.png"></p><p class="text-center">Volver al Modelo Original</p></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>
           </div>
         </div>
       </nav>
+
 
     <div class="jumbotron">
 <?php
@@ -221,13 +260,43 @@
       </div>';      
     }
 ?>
-
+</div>
 
     <div class="jumbotron">
 <?php
     foreach ($thetratamiento as $key => $value) {
       echo '
-      <div class="container" id="material'.$value.'link">
+      <div class="container" id="trat'.$value.'link">
+        <div class="row"><h3 class="text-center">'.$key.'</h3></div>
+        <div class="row">
+            <div id="'.$value.'"></div>
+        </div>
+      </div>';      
+    }
+?>
+  </div>
+    
+
+    <div class="jumbotron">
+<?php
+    foreach ($thetipo as $key => $value) {
+      echo '
+      <div class="container" id="tipo'.$value.'link">
+        <div class="row"><h3 class="text-center">'.$key.'</h3></div>
+        <div class="row">
+            <div id="'.$value.'"></div>
+        </div>
+      </div>';      
+    }
+?>
+
+    </div>
+
+    <div class="jumbotron">
+<?php
+    foreach ($thetech as $key => $value) {
+      echo '
+      <div class="container" id="tech'.$value.'link">
         <div class="row"><h3 class="text-center">'.$key.'</h3></div>
         <div class="row">
             <div id="'.$value.'"></div>
@@ -406,6 +475,71 @@
   ?>
 
 
+  <?php
+    foreach ($thetipo as $keytype => $tipo) {
+      # code...
+
+  ?>
+              var data<?php echo $tipo ?> = new google.visualization.DataTable();
+              data<?php echo $tipo ?>.addColumn('date', 'Dia');
+              data<?php echo $tipo ?>.addColumn('number', '<?php echo $keytype; ?>');
+
+              data<?php echo $tipo ?>.addRows([
+                <?php
+                  foreach ($fechasTipo as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and tipo='$keytype'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
+  <?php
+    foreach ($thetech as $keytech => $tech) {
+      # code...
+
+  ?>
+              var data<?php echo $tech ?> = new google.visualization.DataTable();
+              data<?php echo $tech ?>.addColumn('date', 'Dia');
+              data<?php echo $tech ?>.addColumn('number', '<?php echo $keytech; ?>');
+
+              data<?php echo $tech ?>.addRows([
+                <?php
+                  foreach ($fechasTecnico as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and tecnico='$keytech'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
 
   <?php
     foreach ($themicas as $key => $mica) {
@@ -414,6 +548,29 @@
   ?>
 
               var options<?php echo $mica ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 600,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
+
+  <?php
+    foreach ($thetipo as $key => $tipo) {
+      # code...
+
+  ?>
+
+              var options<?php echo $tipo ?> = {
                 title: '<?php echo $key ?> por dia',
                 height: 600,
                 hAxis: {
@@ -460,6 +617,30 @@
   ?>
 
               var options<?php echo $trat ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 600,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
+
+
+  <?php
+    foreach ($thetech as $key => $tech) {
+      # code...
+
+  ?>
+
+              var options<?php echo $tech ?> = {
                 title: '<?php echo $key ?> por dia',
                 height: 600,
                 hAxis: {
@@ -534,7 +715,34 @@
 
   ?>
 
+    <?php
+    foreach ($thetipo as $key => $tipo) {
+      # code...
 
+  ?>
+              var chart<?php echo $tipo ?> = new google.visualization.LineChart(document.getElementById('<?php echo $tipo; ?>'));
+              chart<?php echo $tipo ?>.draw(data<?php echo $tipo ?>, options<?php echo $tipo ?>);
+
+    <?php
+
+        }
+
+  ?>
+
+
+    <?php
+    foreach ($thetech as $key => $tech) {
+      # code...
+
+  ?>
+              var chart<?php echo $tech ?> = new google.visualization.LineChart(document.getElementById('<?php echo $tech; ?>'));
+              chart<?php echo $tech ?>.draw(data<?php echo $tech ?>, options<?php echo $tech ?>);
+
+    <?php
+
+        }
+
+  ?>
 
             }
 
