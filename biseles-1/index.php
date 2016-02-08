@@ -16,6 +16,16 @@
     .jumbotron{
       padding-top: 5%;
     }
+
+    ul li{
+      list-style-type: none;
+    }
+
+    .back{
+      -ms-transform: rotate(180deg); /* IE 9 */
+      -webkit-transform: rotate(180deg); /* Safari */
+      transform: rotate(180deg);
+    }
   </style>
 <?php
 
@@ -211,7 +221,7 @@
                   ?>
               </ul>
               </li>              
-              <li><a href="../"><p class="text-center"><img src="../img/png/last-track.png"></p><p class="text-center">Volver al Modelo Original</p></a></li>
+              <li><a href="../"><p class="text-center"><img class="back" src="../img/png/next21.png"></p><p class="text-center">Volver al Modelo Original</p></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>
@@ -219,7 +229,67 @@
         </div>
       </nav>
 
-
+    <div class="jumbotron" id="content">
+      <div class="container">
+        <div class="row">
+          <h2>Contenido</h3>
+          <div class="col-xs-6 col-md-4">
+            <h3>Armazones</h3>
+            <ul>
+          <?php
+            foreach ($thearmazon as $key => $value) {
+              echo '<li><a href="#'.$value.'">'.$key.'</a></li>';
+            }
+          ?>
+            </ul>
+          <h3>Micas</h3>
+            <ul>
+          <?php
+            foreach ($themicas as $key => $value) {
+              echo '<li><a href="#'.$value.'">'.$key.'</a></li>';
+            }
+          ?>              
+            </ul>        
+          </div>
+          <div class="col-xs-6 col-md-4">
+          <h3>Material</h3>        
+            <ul>
+          <?php
+            foreach ($themateriales as $key => $value) {
+              echo '<li><a href="#'.$value.'">'.$key.'</a></li>';
+            }
+          ?>
+            </ul>
+          <h3>Tratamiento</h3>
+            <ul>
+          <?php
+            foreach ($thetratamiento as $key => $value) {
+              echo '<li><a href="#'.$value.'">'.$key.'</a></li>';
+            }
+          ?>
+            </ul>
+          </div>
+          <div class="col-xs-6 col-md-4">
+            <h3>Tipo</h3>
+            <ul>        
+          <?php
+            foreach ($thetipo as $key => $value) {
+              echo '<li><a href="#'.$value.'">'.$key.'</a></li>';
+            }
+          ?>
+            </ul>
+          <h3>Tecnico</h3>
+            <ul>        
+          <?php
+            foreach ($thetech as $key => $value) {
+              echo '<li><a href="#'.$value.'">'.$key.'</a></li>';
+            }
+          ?>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="jumbotron">
 <?php
     foreach ($thearmazon as $key => $value) {
@@ -228,6 +298,9 @@
         <div class="row"><h3 class="text-center">'.$key.'</h3></div>
         <div class="row">
             <div id="'.$value.'"></div>
+        </div>
+        <div>
+          <p class="text-center"><a href="#content"><img src="../img/png/index-finger.png"></a></p>
         </div>
       </div>';      
     }
@@ -243,6 +316,9 @@
         <div class="row">
             <div id="'.$value.'"></div>
         </div>
+        <div>
+          <p class="text-center"><a href="#content"><img src="../img/png/index-finger.png"></a></p>
+        </div>
       </div>';      
     }
 ?>
@@ -257,6 +333,9 @@
         <div class="row">
             <div id="'.$value.'"></div>
         </div>
+        <div>
+          <p class="text-center"><a href="#content"><img src="../img/png/index-finger.png"></a></p>
+        </div>
       </div>';      
     }
 ?>
@@ -270,6 +349,9 @@
         <div class="row"><h3 class="text-center">'.$key.'</h3></div>
         <div class="row">
             <div id="'.$value.'"></div>
+        </div>
+        <div>
+          <p class="text-center"><a href="#content"><img src="../img/png/index-finger.png"></a></p>
         </div>
       </div>';      
     }
@@ -286,6 +368,9 @@
         <div class="row">
             <div id="'.$value.'"></div>
         </div>
+        <div>
+          <p class="text-center"><a href="#content"><img src="../img/png/index-finger.png"></a></p>
+        </div>
       </div>';      
     }
 ?>
@@ -300,6 +385,9 @@
         <div class="row"><h3 class="text-center">'.$key.'</h3></div>
         <div class="row">
             <div id="'.$value.'"></div>
+        </div>
+        <div>
+          <p class="text-center"><a href="#content"><img src="../img/png/index-finger.png"></a></p>
         </div>
       </div>';      
     }
