@@ -44,13 +44,14 @@
           </div>
           <div class="collapse navbar-collapse" id="myMenu">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="index.php"><p class="text-center"><i class="material-icons">home</i></p><p class="text-center">Inicio</p></a></li>
+              <li class="active"><a href="index.php"><p class="text-center"><img src="img/png/home153.png"></p><p class="text-center">Inicio</p></a></li>
               <li><a href="armazones.php"><p class="text-center"><img src="img/png/rectangular35.png"></p><p class="text-center">Armazones</p></a></li>
               <li><a href="micas.php"><p class="text-center"><img src="img/png/rectangular30.png"></p><p class="text-center">Micas</p></a></li>
               <li><a href="materiales.php"><p class="text-center"><img src="img/png/eyeglasses4.png"></p><p class="text-center">Materiales</p></a></li>
               <li><a href="tratamiento.php"><p class="text-center"><img src="img/png/tool700.png"></p><p class="text-center">Tratamiento</p></a></li>
               <li><a href="tipo.php"><p class="text-center"><img src="img/png/glasses48.png"></p><p class="text-center">Tipo</p></a></li>              
               <li><a href="tecnico.php"><p class="text-center"><img src="img/png/user219.png"></p><p class="text-center">Tecnico</p></a></li>              
+              <li><a href="biseles-1/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Otro Modelo</p></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>
