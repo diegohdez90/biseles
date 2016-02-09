@@ -133,7 +133,7 @@
       $('h1').addClass('text-center');
       $('.container').append('<div class="col-md-2"></div>');
       $('.col-md-2').append('<ul role="tablist"></ul>');
-      $('ul').addClass('nav nav-pills nav-stacked');
+      $('ul').addClass('nav nav-pills nav-stacked content');
       $('.nav, .nav-pills, .nav-stacked').append(' <li class="active"><a class="a" href="#inicio">Inicio</a></li>'+
         '<li><a class="b" href="#armazones">Armazones</a></li>'+
         '<li><a class="c" href="#micas">Micas</a></li>'+
@@ -157,12 +157,30 @@
 <?php
       foreach ($themicas as $key => $value) {
 ?>
-          '<li><a href="#<?php echo $value; ?>"><?php echo $key; ?></a></li>'+
+          '<li><a class="<?php echo $key ?>link" href="#<?php echo $value; ?>_chart"><?php echo $key; ?></a></li>'+
 <?php
       }
 ?>
         '</ul>'+
         +'</div>');
+
+      $('#micas').children('.container-fluid').append('<?php foreach ($themicas as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>')
+      $('#micas').children('.container-fluid').children('div').fadeOut();
+      $('#micas').children('.container-fluid').children('div:first').fadeIn(); 
+      $('#micas').children('.container-fluid').children('ul').children('li:first').addClass("active");
+
+
+<?php
+      foreach ($themicas as $key => $value) {
+?>
+        $('.<?php echo $key ?>link').click(function(){
+          $(this).parents('ul').children('*').removeClass('active');
+          $(this).parent('li').addClass('active');
+          $('#micas').children('.container-fluid').children('div').fadeOut();
+          $('#micas').children('.container-fluid').children('#<?php echo $value ?>_chart').fadeIn(); 
+        });
+
+<?php } ?>
 
       $('#armazones').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
@@ -229,32 +247,46 @@
         +'</div>');
 
       $('.a').click(function(){
+        $('.content').children().removeClass('active');
         $('#micas, #armazones, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
         $('#chart').fadeIn();
+        $(this).parent().addClass('active');
       });
       $('.b').click(function(){
+        $('.content').children().removeClass('active');
         $('#chart, #micas, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
         $('#armazones').fadeIn();
+        $(this).parent().addClass('active');
       });
       $('.c').click(function(){
+        $('.content').children().removeClass('active');
         $('#chart, #armazones, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
         $('#micas').fadeIn();
+        $(this).parent().addClass('active');
       });
       $('.d').click(function(){
+        $('.content').children().removeClass('active');
         $('#chart, #armazones, #micas, #tratamiento, #tipo, #tecnico').fadeOut();
         $('#materiales').fadeIn();
+        $(this).parent().addClass('active');
       });
       $('.e').click(function(){
+        $('.content').children().removeClass('active');
         $('#chart, #armazones, #materiales, #micas, #tipo, #tecnico').fadeOut();
         $('#tratamiento').fadeIn();
+        $(this).parent().addClass('active');
       });
       $('.f').click(function(){
+        $('.content').children().removeClass('active');
         $('#chart, #armazones, #materiales, #tratamiento, #micas, #tecnico').fadeOut();
         $('#tipo').fadeIn();
+        $(this).parent().addClass('active');
       });
       $('.g').click(function(){
+        $('.content').children().removeClass('active');
         $('#chart, #armazones, #materiales, #tratamiento, #tipo, #micas').fadeOut();
         $('#tecnico').fadeIn();
+        $(this).parent().addClass('active');
       });
     });
   </script>
@@ -283,6 +315,35 @@ function drawBackgroundColor() {
         ?>
       ]);
 
+  <?php
+    foreach ($themicas as $keymicas => $mica) {
+  ?>
+              var data<?php echo $mica ?> = new google.visualization.DataTable();
+              data<?php echo $mica ?>.addColumn('date', 'Dia');
+              data<?php echo $mica ?>.addColumn('number', '<?php echo $keymicas; ?>');
+
+              data<?php echo $mica ?>.addRows([
+                <?php
+                  foreach ($fechasMicas as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and micas='$keymicas'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+        }
+  ?>
+
       var options = {
         title: 'Biseles por dia',
         height: 400,
@@ -295,8 +356,39 @@ function drawBackgroundColor() {
         backgroundColor: '#f1f8e9'
       };
 
+  <?php
+    foreach ($themicas as $key => $mica) {
+  ?>
+
+              var options<?php echo $mica ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 400,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+        }
+  ?>
+
+
       var chart = new google.visualization.LineChart(document.getElementById('chart'));
       chart.draw(data, options);
+
+  <?php
+    foreach ($themicas as $key => $mica) {
+  ?>
+              var chart<?php echo $mica ?> = new google.visualization.LineChart(document.getElementById('<?php echo $mica; ?>_chart'));
+              chart<?php echo $mica ?>.draw(data<?php echo $mica ?>, options<?php echo $mica ?>);
+
+    <?php
+        }
+  ?>
+
     }
   </script>
 
