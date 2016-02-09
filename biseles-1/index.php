@@ -232,7 +232,7 @@
     <div class="jumbotron" id="content">
       <div class="container">
         <div class="row">
-          <h2>Contenido</h3>
+          <h2>Contenido</h2>
           <div class="col-xs-6 col-md-4">
             <h3>Armazones</h3>
             <ul>
@@ -291,6 +291,7 @@
       </div>
     </div>
     <div class="jumbotron">
+      <h1>Armazones</h1>
 <?php
     foreach ($thearmazon as $key => $value) {
       echo '
@@ -308,6 +309,7 @@
 
 </div>
     <div class="jumbotron">
+      <h1>Micas</h1>
 <?php
     foreach ($themicas as $key => $value) {
       echo '
@@ -325,6 +327,7 @@
 </div>
 
     <div class="jumbotron">
+      <h1>Materiales</h1>
 <?php
     foreach ($themateriales as $key => $value) {
       echo '
@@ -342,6 +345,7 @@
 </div>
 
     <div class="jumbotron">
+      <h1>Tratamiento</h1>
 <?php
     foreach ($thetratamiento as $key => $value) {
       echo '
@@ -360,6 +364,7 @@
     
 
     <div class="jumbotron">
+      <h1>Tipo</h1>
 <?php
     foreach ($thetipo as $key => $value) {
       echo '
@@ -378,6 +383,7 @@
     </div>
 
     <div class="jumbotron">
+      <h1>Tecnico</h1>
 <?php
     foreach ($thetech as $key => $value) {
       echo '
@@ -867,6 +873,9 @@
 </script>
 
 <script type="text/javascript">
+  $('document').ready( function () { 
+    $('h1, h2').addClass('text-center');
+  });
 
 /*
   $('document').ready( function () {
