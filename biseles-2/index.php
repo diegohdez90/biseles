@@ -152,6 +152,7 @@
       $('.col-md-8').append('<div id="tecnico"></div>');
       $('.col-md-8').append('<div id="acerca"></div>');
       $('#micas, #armazones, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
+
       $('#micas').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
 <?php
@@ -164,7 +165,7 @@
         '</ul>'+
         +'</div>');
 
-      $('#micas').children('.container-fluid').append('<?php foreach ($themicas as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>')
+      $('#micas').children('.container-fluid').append('<?php foreach ($themicas as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
       $('#micas').children('.container-fluid').children('div').fadeOut();
       $('#micas').children('.container-fluid').children('div:first').fadeIn(); 
       $('#micas').children('.container-fluid').children('ul').children('li:first').addClass("active");
@@ -182,30 +183,67 @@
 
 <?php } ?>
 
+
       $('#armazones').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
 <?php
       foreach ($thearmazon as $key => $value) {
 ?>
-          '<li><a href="#<?php echo $value; ?>"><?php echo $key; ?></a></li>'+
+          '<li><a class="<?php echo $value ?>link" href="#<?php echo $value; ?>_chart"><?php echo $key; ?></a></li>'+
 <?php
       }
 ?>
         '</ul>'+
         +'</div>');
+
+      $('#armazones').children('.container-fluid').append('<?php foreach ($thearmazon as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
+      $('#armazones').children('.container-fluid').children('div').fadeOut();
+      $('#armazones').children('.container-fluid').children('div:first').fadeIn(); 
+      $('#armazones').children('.container-fluid').children('ul').children('li:first').addClass("active");
+
+
+<?php
+      foreach ($thearmazon as $key => $value) {
+?>
+        $('.<?php echo $key ?>link').click(function(){
+          $(this).parents('ul').children('*').removeClass('active');
+          $(this).parent('li').addClass('active');
+          $('#armazones').children('.container-fluid').children('div').fadeOut();
+          $('#armazones').children('.container-fluid').children('#<?php echo $value ?>_chart').fadeIn(); 
+        });
+
+<?php } ?>
+
 
       $('#materiales').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
 <?php
       foreach ($themateriales as $key => $value) {
 ?>
-          '<li><a href="#<?php echo $value; ?>"><?php echo $key; ?></a></li>'+
+          '<li><a class="<?php echo $key ?>link" href="#<?php echo $key; ?>_chart"><?php echo $key; ?></a></li>'+
 <?php
       }
 ?>
         '</ul>'+
         +'</div>');
 
+      $('#materiales').children('.container-fluid').append('<?php foreach ($themateriales as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
+      $('#materiales').children('.container-fluid').children('div').fadeOut();
+      $('#materiales').children('.container-fluid').children('div:first').fadeIn(); 
+      $('#materiales').children('.container-fluid').children('ul').children('li:first').addClass("active");
+
+
+<?php
+      foreach ($themateriales as $key => $value) {
+?>
+        $('.<?php echo $key ?>link').click(function(){
+          $(this).parents('ul').children('*').removeClass('active');
+          $(this).parent('li').addClass('active');
+          $('#materiales').children('.container-fluid').children('div').fadeOut();
+          $('#materiales').children('.container-fluid').children('#<?php echo $value ?>_chart').fadeIn(); 
+        });
+
+<?php } ?>
 
       $('#tratamiento').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
@@ -344,6 +382,99 @@ function drawBackgroundColor() {
         }
   ?>
 
+  <?php
+    foreach ($thearmazon as $keyarm => $arm) {
+  ?>
+              var data<?php echo $arm ?> = new google.visualization.DataTable();
+              data<?php echo $arm ?>.addColumn('date', 'Dia');
+              data<?php echo $arm ?>.addColumn('number', '<?php echo $keyarm; ?>');
+
+              data<?php echo $arm ?>.addRows([
+                <?php
+                  foreach ($fechasArmazon as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and armazon='$keyarm'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+        }
+  ?>
+
+  <?php
+    foreach ($themateriales as $keymat => $mat) {
+  ?>
+              var data<?php echo $mat ?> = new google.visualization.DataTable();
+              data<?php echo $mat ?>.addColumn('date', 'Dia');
+              data<?php echo $mat ?>.addColumn('number', '<?php echo $keymat; ?>');
+
+              data<?php echo $mat ?>.addRows([
+                <?php
+                  foreach ($fechasMateriales as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and materiales='$keymat'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
+
+  <?php
+    foreach ($themateriales as $keymat => $mat) {
+  ?>
+              var data<?php echo $mat ?> = new google.visualization.DataTable();
+              data<?php echo $mat ?>.addColumn('date', 'Dia');
+              data<?php echo $mat ?>.addColumn('number', '<?php echo $keymat; ?>');
+
+              data<?php echo $mat ?>.addRows([
+                <?php
+                  foreach ($fechasMateriales as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and materiales='$keymat'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
+
       var options = {
         title: 'Biseles por dia',
         height: 400,
@@ -375,6 +506,43 @@ function drawBackgroundColor() {
         }
   ?>
 
+  <?php
+    foreach ($thearmazon as $key => $arm) {
+  ?>
+
+              var options<?php echo $arm ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 400,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+        }
+  ?>
+
+  <?php
+    foreach ($themateriales as $key => $arm) {
+  ?>
+
+              var options<?php echo $arm ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 400,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+        }
+  ?>
 
       var chart = new google.visualization.LineChart(document.getElementById('chart'));
       chart.draw(data, options);
@@ -388,6 +556,30 @@ function drawBackgroundColor() {
     <?php
         }
   ?>
+  <?php
+    foreach ($thearmazon as $key => $arm) {
+  ?>
+              var chart<?php echo $arm ?> = new google.visualization.LineChart(document.getElementById('<?php echo $arm; ?>_chart'));
+              chart<?php echo $arm ?>.draw(data<?php echo $arm ?>, options<?php echo $arm ?>);
+
+    <?php
+
+        }
+
+  ?>
+
+    <?php
+    foreach ($themateriales as $key => $mat) {
+  ?>
+              var chart<?php echo $mat ?> = new google.visualization.LineChart(document.getElementById('<?php echo $mat; ?>_chart'));
+              chart<?php echo $mat ?>.draw(data<?php echo $mat ?>, options<?php echo $mat ?>);
+
+    <?php
+
+        }
+
+  ?>
+
 
     }
   </script>

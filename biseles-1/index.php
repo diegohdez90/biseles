@@ -414,8 +414,6 @@
         function drawBackgroundColor() {
   <?php
     foreach ($thearmazon as $keyarm => $arm) {
-      # code...
-
   ?>
               var data<?php echo $arm ?> = new google.visualization.DataTable();
               data<?php echo $arm ?>.addColumn('date', 'Dia');
@@ -440,15 +438,11 @@
                 ?>
               ]);
     <?php
-
         }
-
   ?>
 
   <?php
     foreach ($themicas as $keymicas => $mica) {
-      # code...
-
   ?>
               var data<?php echo $mica ?> = new google.visualization.DataTable();
               data<?php echo $mica ?>.addColumn('date', 'Dia');
@@ -473,15 +467,11 @@
                 ?>
               ]);
     <?php
-
         }
-
   ?>
 
   <?php
     foreach ($themateriales as $keymat => $mat) {
-      # code...
-
   ?>
               var data<?php echo $mat ?> = new google.visualization.DataTable();
               data<?php echo $mat ?>.addColumn('date', 'Dia');
@@ -514,8 +504,6 @@
 
   <?php
     foreach ($thearmazon as $key => $arm) {
-      # code...
-
   ?>
 
               var options<?php echo $arm ?> = {
@@ -530,9 +518,7 @@
                 backgroundColor: '#f1f8e9'
               };
     <?php
-
         }
-
   ?>
 
   <?php
@@ -637,8 +623,6 @@
 
   <?php
     foreach ($themicas as $key => $mica) {
-      # code...
-
   ?>
 
               var options<?php echo $mica ?> = {
@@ -653,9 +637,7 @@
                 backgroundColor: '#f1f8e9'
               };
     <?php
-
         }
-
   ?>
 
   <?php
@@ -754,8 +736,6 @@
 
   <?php
     foreach ($thearmazon as $key => $arm) {
-      # code...
-
   ?>
               var chart<?php echo $arm ?> = new google.visualization.LineChart(document.getElementById('<?php echo $arm; ?>'));
               chart<?php echo $arm ?>.draw(data<?php echo $arm ?>, options<?php echo $arm ?>);
@@ -766,24 +746,18 @@
 
   ?>
 
-    <?php
+  <?php
     foreach ($themicas as $key => $mica) {
-      # code...
-
   ?>
               var chart<?php echo $mica ?> = new google.visualization.LineChart(document.getElementById('<?php echo $mica; ?>'));
               chart<?php echo $mica ?>.draw(data<?php echo $mica ?>, options<?php echo $mica ?>);
 
     <?php
-
         }
-
   ?>
 
     <?php
     foreach ($themateriales as $key => $mat) {
-      # code...
-
   ?>
               var chart<?php echo $mat ?> = new google.visualization.LineChart(document.getElementById('<?php echo $mat; ?>'));
               chart<?php echo $mat ?>.draw(data<?php echo $mat ?>, options<?php echo $mat ?>);
