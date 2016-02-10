@@ -27,7 +27,7 @@
     }
 
 	$fechas = array();
-	$getFechas = $my_sql_conn->query("select distinct fecha from pedido where tratamiento!=' ' and fecha<='2016-09-01'");
+	$getFechas = $my_sql_conn->query("select distinct fecha from pedido where tratamiento!=' ' and fecha>'2015-09-01' and fecha<='2016-09-01'");
 	while($rs = $getFechas->fetch_array(MYSQLI_ASSOC)){
 		$fechas[] = $rs['fecha'];
 	}

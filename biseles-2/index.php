@@ -38,42 +38,42 @@
     }
 
     $fechasArmazon = array();
-    $resultA = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where armazon!=' ' and fecha<'2016-09-01' group by fecha");
+    $resultA = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where armazon!=' ' and fecha>'2015-09-01' and fecha<'2016-09-01' group by fecha");
 
     while($rs = $resultA->fetch_array(MYSQLI_ASSOC)){
       $fechasArmazon[$rs['fecha']] = $rs['biseles']; 
     }
 
     $fechasMicas = array();
-    $resultM = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where micas!=' ' and fecha<'2016-09-01' group by fecha");
+    $resultM = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where micas!=' ' and fecha>'2015-09-01' and fecha<'2016-09-01' group by fecha");
 
     while($rs = $resultM->fetch_array(MYSQLI_ASSOC)){
       $fechasMicas[$rs['fecha']] = $rs['biseles']; 
     }
 
     $fechasMateriales = array();
-    $resultMtles = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where materiales!=' ' and fecha<'2016-09-01'  group by fecha");
+    $resultMtles = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where materiales!=' ' and fecha>'2015-09-01' and fecha<'2016-09-01'  group by fecha");
 
     while($rs = $resultMtles->fetch_array(MYSQLI_ASSOC)){
       $fechasMateriales[$rs['fecha']] = $rs['biseles']; 
     }
 
     $fechasTratamiento = array();
-    $resultTmto = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tratamiento!=' ' and fecha<'2016-09-01' group by fecha");
+    $resultTmto = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tratamiento!=' ' and fecha>'2015-09-01' and fecha<'2016-09-01' group by fecha");
 
     while($rs = $resultTmto->fetch_array(MYSQLI_ASSOC)){
       $fechasTratamiento[$rs['fecha']] = $rs['biseles']; 
     }
 
     $fechasTipo = array();
-    $resultType = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tipo!=' ' and fecha<'2016-09-01' group by fecha");
+    $resultType = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tipo!=' ' and fecha>'2015-09-01' and fecha<'2016-09-01' group by fecha");
 
     while($rs = $resultType->fetch_array(MYSQLI_ASSOC)){
       $fechasTipo[$rs['fecha']] = $rs['biseles']; 
     }
 
     $fechasTecnico = array();
-    $resultTech = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tecnico!=' ' and fecha<'2016-09-01' and fecha>'2015-09-13' group by fecha");
+    $resultTech = $my_sql_conn->query("select fecha, count(*) as biseles from pedido where tecnico!=' ' and fecha>'2015-09-01' and fecha<'2016-09-01' and fecha>'2015-09-13' group by fecha");
 
     while($rs = $resultTech->fetch_array(MYSQLI_ASSOC)){
       $fechasTecnico[$rs['fecha']] = $rs['biseles']; 
