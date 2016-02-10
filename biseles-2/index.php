@@ -141,7 +141,7 @@
         '<li><a class="e" href="#tratamiento">Tratamiento</a></li>'+
         '<li><a class="f" href="#tipo">Tipo</a></li>'+
         '<li><a class="g" href="#tecnico">Tecnico</a></li>'+
-        '<li><a class="h" href="#acerca">Acerca</a></li>        ');
+        '<li><a class="h" href="#acerca">Acerca De</a></li>        ');
       $('.container').append('<div class="col-md-8"></div>');
       $('.col-md-8').append('<div id="chart"></div>');
       $('.col-md-8').append('<div id="armazones"></div>');
@@ -332,47 +332,80 @@
 
 <?php } ?>
 
+      $('#acerca').append('<div class="container-fluid"></div>');
+      $('#acerca').children('div').append('<h1>Diego Arturo Hernandez Fuentes</h1>');
+      $('#acerca').children('div').find('h1').addClass('text-center');
+      $('#acerca').children('div').find('h1').append(' <small>Desarrollador</small>');
+
+      var extracto = 'Alumno egresado de la Facultad de Ciencias de la Computacion de la Benemerita Universidad'+
+      ' Autonoma de Puebla con el grado de Licenciado en Ingenieria en Ciencias de la Computacion.';
+      var habilidades = 'Desde temprana edad mostre habilidades para las matematicas, materia donde mostre tener '+
+      'gran desempe&ntilde;o en la escuela. Adem&aacute;s, desde la eduaci&oacute;n primaria estuve interesado en la Computaci&oacute;n, '+
+      'materia que me ense&ntilde;aron desde primer a&ntilde;o. Pasando por el nivel de Secundaria, obtuve habilidades en '+
+      'el uso del Sistema Operativo Windows y en el uso de Microsoft Office. En el Bachillerato obtuve los mismos conomientos '+
+      'de Office y de mantenimiento del equipo y un poco de desarollo en Visual Basic, primer lenguaje de Progrmaci&oacute;n que us&eacute. '+
+      'Durante la Universidad mostre gran desempe&ntilde;o en la metodolog&iacute;a de la programaci&oacute;n y en el lenguaje C, '+
+      'primer lenguaje que domino en la Universidad. Despu&eacute;es aprend&iacute; Java, primero, fue el lenguaje que me complic&oacute '+
+      'aprender, pero fue en la materia de Estructuras de Datos y Programaci&oacute;n Concurrente y Paralela donde desarrolle '+
+      'mi habilidad en el uso de este lenguaje de Programaci&oacute;n Orientado a Objetos. Desarrolle habilidades en materias de '+
+      'Ingenier&iacute;a de Software, Modelo de Redes, Desarrollo de Apliciones Moviles, Aplicaciones Multimedia, Aplicaciones Web, Bases de Datos y Sistemas Operativos. '+
+      'En la materia de Aplicaciones Web use la herramienta de Google App Engine que nos proporcin&oacute; para este curso para desarrollar un blog '+
+      'de las herramientas que estamos viendo durante el curso. Durante mis Pr&aacute;cticas Profesionales, actualice la p&aacute;gina web de la '+
+      'Facultad de Ingenier&iacute;a Qu&iacute;mica con el modelo que usa la Universidad debido al cambio de imagen. Use las herramientas desarrollo '+
+      'responsivo de Bootstrap y desarroll&eacute; algunas secciones con jQuery, un plus al nuevo sitio de esta Facultad. '+
+      'PHP lo aprend&iacute; a usar hasta el final de la carrera, y ahora que obtuve mi '+
+      'primera oportunidad laboral desarrolle aplicciones usando las herramientas responsivas de Bootstrap y los API de Google, como: Google Fonts, '+
+      'Google Chart, Google Maps; adem&aacute;s algunos proyectos us&eacute; AngularJS para los formularios y extracci&oacute;n de informaci&oacute;n de '+
+      'Bases de Datos MySQL';
+      $('#acerca').children('div').append('<p>'+extracto+'</p><p>'+habilidades+'</p>');
+      $('#acerca').children('div').find('p').addClass('text-justify')
 
       $('.a').click(function(){
         $('.content').children().removeClass('active');
-        $('#micas, #armazones, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
+        $('#micas, #armazones, #materiales, #tratamiento, #tipo, #tecnico, #acerca').fadeOut();
         $('#chart').fadeIn();
         $(this).parent().addClass('active');
       });
       $('.b').click(function(){
         $('.content').children().removeClass('active');
-        $('#chart, #micas, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
+        $('#chart, #micas, #materiales, #tratamiento, #tipo, #tecnico, #acerca').fadeOut();
         $('#armazones').fadeIn();
         $(this).parent().addClass('active');
       });
       $('.c').click(function(){
         $('.content').children().removeClass('active');
-        $('#chart, #armazones, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
+        $('#chart, #armazones, #materiales, #tratamiento, #tipo, #tecnico, #acerca').fadeOut();
         $('#micas').fadeIn();
         $(this).parent().addClass('active');
       });
       $('.d').click(function(){
         $('.content').children().removeClass('active');
-        $('#chart, #armazones, #micas, #tratamiento, #tipo, #tecnico').fadeOut();
+        $('#chart, #armazones, #micas, #tratamiento, #tipo, #tecnico, #acerca').fadeOut();
         $('#materiales').fadeIn();
         $(this).parent().addClass('active');
       });
       $('.e').click(function(){
         $('.content').children().removeClass('active');
-        $('#chart, #armazones, #materiales, #micas, #tipo, #tecnico').fadeOut();
+        $('#chart, #armazones, #materiales, #micas, #tipo, #tecnico, #acerca').fadeOut();
         $('#tratamiento').fadeIn();
         $(this).parent().addClass('active');
       });
       $('.f').click(function(){
         $('.content').children().removeClass('active');
-        $('#chart, #armazones, #materiales, #tratamiento, #micas, #tecnico').fadeOut();
+        $('#chart, #armazones, #materiales, #tratamiento, #micas, #tecnico, #acerca').fadeOut();
         $('#tipo').fadeIn();
         $(this).parent().addClass('active');
       });
       $('.g').click(function(){
         $('.content').children().removeClass('active');
-        $('#chart, #armazones, #materiales, #tratamiento, #tipo, #micas').fadeOut();
+        $('#chart, #armazones, #materiales, #tratamiento, #tipo, #micas, #acerca').fadeOut();
         $('#tecnico').fadeIn();
+        $(this).parent().addClass('active');
+      });
+      $('.h').click(function(){
+        $('.content').children().removeClass('active');
+        $('#chart, #armazones, #materiales, #tratamiento, #tipo, #micas, #tecnico').fadeOut();
+        $('#acerca').fadeIn();
         $(this).parent().addClass('active');
       });
     });
