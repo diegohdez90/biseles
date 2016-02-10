@@ -263,7 +263,7 @@
 <?php
       foreach ($thetratamiento as $key => $value) {
 ?>
-          '<li><a class="<?php echo $key ?>link" href="#<?php echo $key; ?>_chart"><?php echo $key; ?></a></li>'+
+          '<li><a class="<?php echo $value ?>link" href="#<?php echo $key; ?>_chart"><?php echo $key; ?></a></li>'+
 <?php
       }
 ?>
@@ -278,7 +278,7 @@
 <?php
       foreach ($thetratamiento as $key => $value) {
 ?>
-        $('.<?php echo $key ?>link').click(function(){
+        $('.<?php echo $value ?>link').click(function(){
           $(this).parents('ul').children('*').removeClass('active');
           $(this).parent('li').addClass('active');
           $('#tratamiento').children('.container-fluid').children('div').fadeOut();
