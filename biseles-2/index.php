@@ -279,14 +279,29 @@
 <?php
       foreach ($thetipo as $key => $value) {
 ?>
-          '<li><a href="#<?php echo $value; ?>"><?php echo $key; ?></a></li>'+
+          '<li><a class="<?php echo $key ?>link" href="#<?php echo $key; ?>_chart"><?php echo $key; ?></a></li>'+
 <?php
       }
 ?>
         '</ul>'+
         +'</div>');
 
+      $('#tipo').children('.container-fluid').append('<?php foreach ($thetipo as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
+      $('#tipo').children('.container-fluid').children('div').fadeOut();
+      $('#tipo').children('.container-fluid').children('div:first').fadeIn(); 
+      $('#tipo').children('.container-fluid').children('ul').children('li:first').addClass("active");
 
+<?php
+      foreach ($thetipo as $key => $value) {
+?>
+        $('.<?php echo $key ?>link').click(function(){
+          $(this).parents('ul').children('*').removeClass('active');
+          $(this).parent('li').addClass('active');
+          $('#tipo').children('.container-fluid').children('div').fadeOut();
+          $('#tipo').children('.container-fluid').children('#<?php echo $value ?>_chart').fadeIn(); 
+        });
+
+<?php } ?>
 
       $('#tecnico').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
@@ -521,6 +536,38 @@ function drawBackgroundColor() {
 
   ?>
 
+  <?php
+    foreach ($thetipo as $keytype => $tipo) {
+  ?>
+              var data<?php echo $tipo ?> = new google.visualization.DataTable();
+              data<?php echo $tipo ?>.addColumn('date', 'Dia');
+              data<?php echo $tipo ?>.addColumn('number', '<?php echo $keytype; ?>');
+
+              data<?php echo $tipo ?>.addRows([
+                <?php
+                  foreach ($fechasTipo as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and tipo='$keytype'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
+
       var options = {
         title: 'Biseles por dia',
         height: 400,
@@ -613,6 +660,27 @@ function drawBackgroundColor() {
   ?>
 
 
+  <?php
+    foreach ($thetipo as $key => $tipo) {
+  ?>
+
+              var options<?php echo $tipo ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 400,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
+
       var chart = new google.visualization.LineChart(document.getElementById('chart'));
       chart.draw(data, options);
 
@@ -661,6 +729,17 @@ function drawBackgroundColor() {
 
   ?>
 
+    <?php
+    foreach ($thetipo as $key => $tipo) {
+  ?>
+              var chart<?php echo $tipo ?> = new google.visualization.LineChart(document.getElementById('<?php echo $tipo; ?>_chart'));
+              chart<?php echo $tipo ?>.draw(data<?php echo $tipo ?>, options<?php echo $tipo ?>);
+
+    <?php
+
+        }
+
+  ?>
 
 
     }
