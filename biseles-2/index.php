@@ -250,13 +250,29 @@
 <?php
       foreach ($thetratamiento as $key => $value) {
 ?>
-          '<li><a href="#<?php echo $value; ?>"><?php echo $key; ?></a></li>'+
+          '<li><a class="<?php echo $key ?>link" href="#<?php echo $key; ?>_chart"><?php echo $key; ?></a></li>'+
 <?php
       }
 ?>
         '</ul>'+
         +'</div>');
 
+      $('#tratamiento').children('.container-fluid').append('<?php foreach ($thetratamiento as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
+      $('#tratamiento').children('.container-fluid').children('div').fadeOut();
+      $('#tratamiento').children('.container-fluid').children('div:first').fadeIn(); 
+      $('#tratamiento').children('.container-fluid').children('ul').children('li:first').addClass("active");
+
+<?php
+      foreach ($thetratamiento as $key => $value) {
+?>
+        $('.<?php echo $key ?>link').click(function(){
+          $(this).parents('ul').children('*').removeClass('active');
+          $(this).parent('li').addClass('active');
+          $('#tratamiento').children('.container-fluid').children('div').fadeOut();
+          $('#tratamiento').children('.container-fluid').children('#<?php echo $value ?>_chart').fadeIn(); 
+        });
+
+<?php } ?>
 
       $('#tipo').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
@@ -474,6 +490,36 @@ function drawBackgroundColor() {
 
   ?>
 
+  <?php
+    foreach ($thetratamiento as $keytrat => $trat) {
+  ?>
+              var data<?php echo $trat ?> = new google.visualization.DataTable();
+              data<?php echo $trat ?>.addColumn('date', 'Dia');
+              data<?php echo $trat ?>.addColumn('number', '<?php echo $keytrat; ?>');
+
+              data<?php echo $trat ?>.addRows([
+                <?php
+                  foreach ($fechasTratamiento as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and tratamiento='$keytrat'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
 
       var options = {
         title: 'Biseles por dia',
@@ -544,6 +590,29 @@ function drawBackgroundColor() {
         }
   ?>
 
+
+  <?php
+    foreach ($thetratamiento as $key => $trat) {
+  ?>
+
+              var options<?php echo $trat ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 400,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
+
+
       var chart = new google.visualization.LineChart(document.getElementById('chart'));
       chart.draw(data, options);
 
@@ -577,8 +646,21 @@ function drawBackgroundColor() {
     <?php
 
         }
+  ?>
+
+
+    <?php
+    foreach ($thetratamiento as $key => $trat) {
+  ?>
+              var chart<?php echo $trat ?> = new google.visualization.LineChart(document.getElementById('<?php echo $trat; ?>_chart'));
+              chart<?php echo $trat ?>.draw(data<?php echo $trat ?>, options<?php echo $trat ?>);
+
+    <?php
+
+        }
 
   ?>
+
 
 
     }

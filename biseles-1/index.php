@@ -431,7 +431,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -460,7 +460,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -489,7 +489,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -523,8 +523,6 @@
 
   <?php
     foreach ($thetratamiento as $keytrat => $trat) {
-      # code...
-
   ?>
               var data<?php echo $trat ?> = new google.visualization.DataTable();
               data<?php echo $trat ?>.addColumn('date', 'Dia');
@@ -542,7 +540,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -557,8 +555,6 @@
 
   <?php
     foreach ($thetipo as $keytype => $tipo) {
-      # code...
-
   ?>
               var data<?php echo $tipo ?> = new google.visualization.DataTable();
               data<?php echo $tipo ?>.addColumn('date', 'Dia');
@@ -576,7 +572,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -590,8 +586,6 @@
 
   <?php
     foreach ($thetech as $keytech => $tech) {
-      # code...
-
   ?>
               var data<?php echo $tech ?> = new google.visualization.DataTable();
               data<?php echo $tech ?>.addColumn('date', 'Dia');
@@ -609,7 +603,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -642,8 +636,6 @@
 
   <?php
     foreach ($thetipo as $key => $tipo) {
-      # code...
-
   ?>
 
               var options<?php echo $tipo ?> = {
@@ -665,8 +657,6 @@
 
   <?php
     foreach ($themateriales as $key => $mat) {
-      # code...
-
   ?>
 
               var options<?php echo $mat ?> = {
@@ -688,8 +678,6 @@
 
   <?php
     foreach ($thetratamiento as $key => $trat) {
-      # code...
-
   ?>
 
               var options<?php echo $trat ?> = {
@@ -712,8 +700,6 @@
 
   <?php
     foreach ($thetech as $key => $tech) {
-      # code...
-
   ?>
 
               var options<?php echo $tech ?> = {
@@ -771,8 +757,6 @@
 
     <?php
     foreach ($thetratamiento as $key => $trat) {
-      # code...
-
   ?>
               var chart<?php echo $trat ?> = new google.visualization.LineChart(document.getElementById('<?php echo $trat; ?>'));
               chart<?php echo $trat ?>.draw(data<?php echo $trat ?>, options<?php echo $trat ?>);
@@ -785,8 +769,6 @@
 
     <?php
     foreach ($thetipo as $key => $tipo) {
-      # code...
-
   ?>
               var chart<?php echo $tipo ?> = new google.visualization.LineChart(document.getElementById('<?php echo $tipo; ?>'));
               chart<?php echo $tipo ?>.draw(data<?php echo $tipo ?>, options<?php echo $tipo ?>);
@@ -800,8 +782,6 @@
 
     <?php
     foreach ($thetech as $key => $tech) {
-      # code...
-
   ?>
               var chart<?php echo $tech ?> = new google.visualization.LineChart(document.getElementById('<?php echo $tech; ?>'));
               chart<?php echo $tech ?>.draw(data<?php echo $tech ?>, options<?php echo $tech ?>);
