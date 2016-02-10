@@ -3,6 +3,10 @@
     min-height: 100%;
   }
 
+  body{
+    font-family: 'Titillium Web', sans-serif;
+  }
+
   .jumbotron{
 /*    padding: 15% 0;*/
     margin: 10% 0;

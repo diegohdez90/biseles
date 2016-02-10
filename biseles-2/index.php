@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300' rel='stylesheet' type='text/css'>
+
+
+  <style type="text/css">
+    .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+        color: #fff;
+        background-color: rgb(0,172,200);
+    }
+
+
+  </style>
 <?php
 
   $servername = "localhost";
@@ -122,6 +133,8 @@
 
 ?>
 
+  <script type="text/javascript">
+  </script>
 
 
   <script type="text/javascript">
@@ -205,7 +218,7 @@
 <?php
       foreach ($thearmazon as $key => $value) {
 ?>
-        $('.<?php echo $key ?>link').click(function(){
+        $('.<?php echo $value ?>link').click(function(){
           $(this).parents('ul').children('*').removeClass('active');
           $(this).parent('li').addClass('active');
           $('#armazones').children('.container-fluid').children('div').fadeOut();
@@ -408,7 +421,17 @@
         $('#acerca').fadeIn();
         $(this).parent().addClass('active');
       });
+
+      $('body').append('<footer></footer>');
+      $('footer').append('<p>Veotek<i class="material-icons" style="font-size:16px;">copyright</i> <span id="Today"></span></p>');
+      $('footer').children('p').addClass('text-center');
+
+      var d = new Date();
+      var n = d.getFullYear();
+      document.getElementById("Today").innerHTML = n;
+
     });
+      
   </script>
 
 
@@ -869,7 +892,7 @@ function drawBackgroundColor() {
 
   <style type="text/css">
     footer{
-          min-height: 0.25%;
+          min-height: 10%;
     }
     .jumbotron{
       padding-top: 5%;
