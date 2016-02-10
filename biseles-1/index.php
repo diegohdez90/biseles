@@ -431,7 +431,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -460,7 +460,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -489,7 +489,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -540,7 +540,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -572,7 +572,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -603,7 +603,7 @@
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 

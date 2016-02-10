@@ -151,7 +151,7 @@
       $('.col-md-8').append('<div id="tipo"></div>');
       $('.col-md-8').append('<div id="tecnico"></div>');
       $('.col-md-8').append('<div id="acerca"></div>');
-      $('#micas, #armazones, #materiales, #tratamiento, #tipo, #tecnico').fadeOut();
+      $('#micas, #armazones, #materiales, #tratamiento, #tipo, #tecnico, #acerca').fadeOut();
 
       $('#micas').append('<div class="container-fluid">'+
         '<ul class="nav nav-tabs" role="tablist">'+
@@ -308,12 +308,30 @@
 <?php
       foreach ($thetech as $key => $value) {
 ?>
-          '<li><a href="#<?php echo $value; ?>"><?php echo $key; ?></a></li>'+
+          '<li><a class="<?php echo $key ?>link" href="#<?php echo $key; ?>_chart"><?php echo $key; ?></a></li>'+
 <?php
       }
 ?>
         '</ul>'+
         +'</div>');
+
+      $('#tecnico').children('.container-fluid').append('<?php foreach ($thetech as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
+      $('#tecnico').children('.container-fluid').children('div').fadeOut();
+      $('#tecnico').children('.container-fluid').children('div:first').fadeIn(); 
+      $('#tecnico').children('.container-fluid').children('ul').children('li:first').addClass("active");
+
+<?php
+      foreach ($thetech as $key => $value) {
+?>
+        $('.<?php echo $key ?>link').click(function(){
+          $(this).parents('ul').children('*').removeClass('active');
+          $(this).parent('li').addClass('active');
+          $('#tecnico').children('.container-fluid').children('div').fadeOut();
+          $('#tecnico').children('.container-fluid').children('#<?php echo $value ?>_chart').fadeIn(); 
+        });
+
+<?php } ?>
+
 
       $('.a').click(function(){
         $('.content').children().removeClass('active');
@@ -432,7 +450,7 @@ function drawBackgroundColor() {
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -461,7 +479,7 @@ function drawBackgroundColor() {
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -493,7 +511,7 @@ function drawBackgroundColor() {
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -524,7 +542,7 @@ function drawBackgroundColor() {
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -555,7 +573,7 @@ function drawBackgroundColor() {
                       $cantidad =  $rs['total'];
                     }; 
                 ?>
-                  [new Date(<?php echo $annio;?>,<?php echo $mes;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
                 <?php    
                   } 
 
@@ -566,6 +584,40 @@ function drawBackgroundColor() {
         }
 
   ?>
+
+
+
+  <?php
+    foreach ($thetech as $keytech => $tech) {
+  ?>
+              var data<?php echo $tech ?> = new google.visualization.DataTable();
+              data<?php echo $tech ?>.addColumn('date', 'Dia');
+              data<?php echo $tech ?>.addColumn('number', '<?php echo $keytech; ?>');
+
+              data<?php echo $tech ?>.addRows([
+                <?php
+                  foreach ($fechasTecnico as $key => $value) {
+                    $annio = substr($key, 0,4);
+                    $mes = substr($key, 5,2);
+                    $dia = substr($key, 8,2);
+
+                    $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$key' and tecnico='$keytech'"); 
+                    while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                      $cantidad =  $rs['total'];
+                    }; 
+                ?>
+                  [new Date(<?php echo $annio;?>,<?php echo $mes-1;?>,<?php echo $dia;?>),<?php echo $cantidad;?>],
+                <?php    
+                  } 
+
+                ?>
+              ]);
+    <?php
+
+        }
+
+  ?>
+
 
 
       var options = {
@@ -681,6 +733,28 @@ function drawBackgroundColor() {
 
   ?>
 
+  <?php
+    foreach ($thetech as $key => $tech) {
+  ?>
+
+              var options<?php echo $tech ?> = {
+                title: '<?php echo $key ?> por dia',
+                height: 400,
+                hAxis: {
+                  title: 'Dia'
+                },
+                vAxis: {
+                  title: 'Biseles'
+                },
+                backgroundColor: '#f1f8e9'
+              };
+    <?php
+
+        }
+
+  ?>
+
+
       var chart = new google.visualization.LineChart(document.getElementById('chart'));
       chart.draw(data, options);
 
@@ -740,6 +814,19 @@ function drawBackgroundColor() {
         }
 
   ?>
+
+    <?php
+    foreach ($thetech as $key => $tech) {
+  ?>
+              var chart<?php echo $tech ?> = new google.visualization.LineChart(document.getElementById('<?php echo $tech; ?>_chart'));
+              chart<?php echo $tech ?>.draw(data<?php echo $tech ?>, options<?php echo $tech ?>);
+
+    <?php
+
+        }
+
+  ?>
+
 
 
     }
