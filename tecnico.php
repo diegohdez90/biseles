@@ -11,10 +11,8 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <?php
 
-	$servername = "localhost";
-	$user = "root";
-	$pwd = "veotek";
-	$db = "inventario1";
+  include 'connection.php';
+
 
 
 	$my_sql_conn =  new mysqli($servername,$user,$pwd,$db);

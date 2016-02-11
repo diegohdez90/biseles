@@ -12,10 +12,7 @@
 
 <?php
 
-	$servername = "localhost";
-	$user = "root";
-	$pwd = "veotek";
-	$db = "inventario1";
+  include 'connection.php';
 
 
 	$my_sql_conn =  new mysqli($servername,$user,$pwd,$db);

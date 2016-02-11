@@ -22,10 +22,7 @@
   </style>
 <?php
 
-  $servername = "localhost";
-  $user = "root";
-  $pwd = "veotek";
-  $db = "inventario1";
+  include '../connection.php';
 
 
   $my_sql_conn =  new mysqli($servername,$user,$pwd,$db);
@@ -176,7 +173,7 @@
       }
 ?>
         '</ul>'+
-        +'</div>');
+        '</div>');
 
       $('#micas').children('.container-fluid').append('<?php foreach ($themicas as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
       $('#micas').children('.container-fluid').children('div').fadeOut();
@@ -207,7 +204,7 @@
       }
 ?>
         '</ul>'+
-        +'</div>');
+        '</div>');
 
       $('#armazones').children('.container-fluid').append('<?php foreach ($thearmazon as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
       $('#armazones').children('.container-fluid').children('div').fadeOut();
@@ -238,7 +235,7 @@
       }
 ?>
         '</ul>'+
-        +'</div>');
+        '</div>');
 
       $('#materiales').children('.container-fluid').append('<?php foreach ($themateriales as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
       $('#materiales').children('.container-fluid').children('div').fadeOut();
@@ -268,7 +265,7 @@
       }
 ?>
         '</ul>'+
-        +'</div>');
+        '</div>');
 
       $('#tratamiento').children('.container-fluid').append('<?php foreach ($thetratamiento as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
       $('#tratamiento').children('.container-fluid').children('div').fadeOut();
@@ -297,7 +294,7 @@
       }
 ?>
         '</ul>'+
-        +'</div>');
+        '</div>');
 
       $('#tipo').children('.container-fluid').append('<?php foreach ($thetipo as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
       $('#tipo').children('.container-fluid').children('div').fadeOut();
@@ -326,7 +323,7 @@
       }
 ?>
         '</ul>'+
-        +'</div>');
+        '</div>');
 
       $('#tecnico').children('.container-fluid').append('<?php foreach ($thetech as $key => $value) { ?><div id="<?php echo $value ?>_chart"></div><?php } ?>');
       $('#tecnico').children('.container-fluid').children('div').fadeOut();
