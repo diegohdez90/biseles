@@ -48,7 +48,9 @@
               <li><a href="tratamiento.php"><p class="text-center"><img src="img/png/tool700.png"></p><p class="text-center">Tratamiento</p></a></li>
               <li><a href="tipo.php"><p class="text-center"><img src="img/png/glasses48.png"></p><p class="text-center">Tipo</p></a></li>              
               <li><a href="tecnico.php"><p class="text-center"><img src="img/png/user219.png"></p><p class="text-center">Tecnico</p></a></li>              
-              <li><a href="biseles-1/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Otro Modelo</p></a></li>
+              <li><a href="biseles-1/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Modelo 1</p></a></li>
+              <li><a href="biseles-2/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Modelo 2</p></a></li>
+              <li><a href="biseles-3/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Modelo 3</p></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>

@@ -218,7 +218,7 @@
                   ?>
               </ul>
               </li>              
-              <li><a href="../"><p class="text-center"><img class="back" src="../img/png/next21.png"></p><p class="text-center">Volver al Modelo Original</p></a></li>
+              <li><a href="../"><p class="text-center"><img class="back" src="../img/png/next21.png"></p><p class="text-center">Volver</p></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>
