@@ -51,6 +51,7 @@
               <li><a href="biseles-1/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Modelo 1</p></a></li>
               <li><a href="biseles-2/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Modelo 2</p></a></li>
               <li><a href="biseles-3/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Modelo 3</p></a></li>
+              <li><a href="biseles-4/"><p class="text-center"><img src="img/png/next21.png"></p><p class="text-center">Modelo 4</p></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right veoteimg">
             </ul>
