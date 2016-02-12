@@ -188,7 +188,7 @@
       $('#tratamiento').append('<div class="container-fluid">'+
         '</div>');
 
-      $('#tratamiento').children('.container-fluid').append('<div id="tratamiento_chart"></div>?>');
+      $('#tratamiento').children('.container-fluid').append('<div id="tratamiento_chart"></div>');
 
 
 
@@ -431,6 +431,159 @@ function drawBackgroundColor() {
       var chartMicas = new google.visualization.LineChart(document.getElementById('micas_chart'));
       chartMicas.draw(dataMicas, optionsMicas);
 
+
+      var dataMateriales = new google.visualization.DataTable();
+      dataMateriales.addColumn('date', 'Dia');
+    <?php
+      foreach ($materiales as $key => $value) {
+  ?>    
+
+      dataMateriales.addColumn('number', '<?php echo $value ?>');
+  <?php
+    }
+    ?>
+
+      dataMateriales.addRows([
+        <?php
+            foreach($fechasMateriales as $f => $cantidad) { 
+                $selectFecha = $f;
+                $annio = substr($f, 0,4);
+                $mes = substr($f, 5,2);
+                $dia = substr($f, 8,2);
+        ?>
+         <?php echo "[new Date(".$annio.",".($mes-1).",".$dia."),";?>
+         <?php 
+
+          foreach ($materiales as $key => $value) { 
+            $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$selectFecha' and materiales='$value'"); 
+            while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                echo $rs['total'].",";
+          } 
+        }
+        echo "],";
+        } 
+        ?>
+
+    
+    ]);
+
+      var optionsMateriales = {
+        title: 'Materiales por dia',
+        height: 400,
+        hAxis: {
+          title: 'Dia'
+        },
+        vAxis: {
+          title: 'Cantidad'
+        },
+        backgroundColor: '#f1f8e9'
+      };
+
+      var chartMateriales = new google.visualization.LineChart(document.getElementById('materiales_chart'));
+      chartMateriales.draw(dataMateriales, optionsMateriales);
+
+
+
+      var dataTecnico = new google.visualization.DataTable();
+      dataTecnico.addColumn('date', 'Dia');
+    <?php
+      foreach ($tecnico as $key => $value) {
+  ?>    
+
+      dataTecnico.addColumn('number', '<?php echo $value ?>');
+  <?php
+    }
+    ?>
+
+      dataTecnico.addRows([
+        <?php
+            foreach($fechasTecnico as $f => $cantidad) { 
+                $selectFecha = $f;
+                $annio = substr($f, 0,4);
+                $mes = substr($f, 5,2);
+                $dia = substr($f, 8,2);
+        ?>
+         <?php echo "[new Date(".$annio.",".($mes-1).",".$dia."),";?>
+         <?php 
+
+          foreach ($tecnico as $key => $value) { 
+            $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$selectFecha' and tecnico='$value'"); 
+            while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                echo $rs['total'].",";
+          } 
+        }
+        echo "],";
+        } 
+        ?>
+
+    
+    ]);
+
+      var optionsTecnico = {
+        title: 'Tecnico por dia',
+        height: 400,
+        hAxis: {
+          title: 'Dia'
+        },
+        vAxis: {
+          title: 'Cantidad'
+        },
+        backgroundColor: '#f1f8e9'
+      };
+
+      var chartTecnico = new google.visualization.LineChart(document.getElementById('tecnico_chart'));
+      chartTecnico.draw(dataTecnico, optionsTecnico);
+
+
+      var dataTipo = new google.visualization.DataTable();
+      dataTipo.addColumn('date', 'Dia');
+    <?php
+      foreach ($tipo as $key => $value) {
+  ?>    
+
+      dataTipo.addColumn('number', '<?php echo $value ?>');
+  <?php
+    }
+    ?>
+
+      dataTipo.addRows([
+        <?php
+            foreach($fechasTipo as $f => $cantidad) { 
+                $selectFecha = $f;
+                $annio = substr($f, 0,4);
+                $mes = substr($f, 5,2);
+                $dia = substr($f, 8,2);
+        ?>
+         <?php echo "[new Date(".$annio.",".($mes-1).",".$dia."),";?>
+         <?php 
+
+          foreach ($tipo as $key => $value) { 
+            $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$selectFecha' and tipo='$value'"); 
+            while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                echo $rs['total'].",";
+          } 
+        }
+        echo "],";
+        } 
+        ?>
+
+    
+    ]);
+
+      var optionsTipo = {
+        title: 'Tipo por dia',
+        height: 400,
+        hAxis: {
+          title: 'Dia'
+        },
+        vAxis: {
+          title: 'Cantidad'
+        },
+        backgroundColor: '#f1f8e9'
+      };
+
+      var chartTipo = new google.visualization.LineChart(document.getElementById('tipo_chart'));
+      chartTipo.draw(dataTipo, optionsTipo);
 
 
 
