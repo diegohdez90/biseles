@@ -18,7 +18,6 @@
         background-color: rgb(0,172,200);
     }
 
-
   </style>
 <?php
 
@@ -231,6 +230,8 @@
       'Bases de Datos MySQL.';
 
       $('#acerca').children('div').append('<p>'+extracto+'</p><p>'+habilidades+'</p>');
+
+
       $('#acerca').children('div').find('p').addClass('text-justify')
 
       $('.a').click(function(){
@@ -289,6 +290,7 @@
       var d = new Date();
       var n = d.getFullYear();
       document.getElementById("Today").innerHTML = n;
+
 
     });
       
@@ -586,6 +588,57 @@ function drawBackgroundColor() {
       chartTipo.draw(dataTipo, optionsTipo);
 
 
+      var dataTratamiento = new google.visualization.DataTable();
+      dataTratamiento.addColumn('date', 'Dia');
+    <?php
+      foreach ($tratamiento as $key => $value) {
+  ?>    
+
+      dataTratamiento.addColumn('number', '<?php echo $value ?>');
+  <?php
+    }
+    ?>
+
+      dataTratamiento.addRows([
+        <?php
+            foreach($fechasTratamiento as $f => $cantidad) { 
+                $selectFecha = $f;
+                $annio = substr($f, 0,4);
+                $mes = substr($f, 5,2);
+                $dia = substr($f, 8,2);
+        ?>
+         <?php echo "[new Date(".$annio.",".($mes-1).",".$dia."),";?>
+         <?php 
+
+          foreach ($tratamiento as $key => $value) { 
+            $total = $my_sql_conn->query("select count(*) as total from pedido where fecha = '$selectFecha' and tratamiento='$value'"); 
+            while($rs = $total->fetch_array(MYSQLI_ASSOC)){ 
+                echo $rs['total'].",";
+          } 
+        }
+        echo "],";
+        } 
+        ?>
+
+    
+    ]);
+
+      var optionsTratamiento = {
+        title: 'Tratamientos por dia',
+        height: 400,
+        hAxis: {
+          title: 'Dia'
+        },
+        vAxis: {
+          title: 'Cantidad'
+        },
+        backgroundColor: '#f1f8e9'
+      };
+
+      var chartTratamiento = new google.visualization.LineChart(document.getElementById('tratamiento_chart'));
+      chartTratamiento.draw(dataTratamiento, optionsTratamiento);
+
+
 
 
 
@@ -597,9 +650,11 @@ function drawBackgroundColor() {
 
 
   <style type="text/css">
+
     footer{
-          min-height: 10%;
+      min-height: 2%;
     }
+
     .jumbotron{
       padding-top: 5%;
     }
